@@ -1,13 +1,15 @@
-package web.model;
+package web.models;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
-@Table(name = "users2")
+@Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "name")
@@ -16,17 +18,15 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "email")
-    private String email;
+    @Column(name = "age")
+    private int age;
 
-    public User() {
-    }
+    public User() {}
 
-    public User(Long id, String firstName, String lastName, String email) {
-        this.id = id;
+    public User(String firstName, String lastName, int age) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.email = email;
+        this.age = age;
     }
 
     public Long getId() {
@@ -53,12 +53,12 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
-        return email;
+    public int getAge() {
+        return age;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setAge(int age) {
+        this.age = age;
     }
 
     @Override
@@ -67,7 +67,20 @@ public class User {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
+                ", age=" + age +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }
