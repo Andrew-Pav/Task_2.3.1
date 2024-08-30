@@ -10,52 +10,49 @@ import org.springframework.web.bind.annotation.RequestParam;
 import web.models.User;
 import web.service.UserService;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Controller
 public class UsersController {
 
-	private final UserService userService;
+    private final UserService userService;
 
-	@Autowired
-	public UsersController(UserService userService) {
-		this.userService = userService;
-	}
+    @Autowired
+    public UsersController(UserService userService) {
+        this.userService = userService;
+    }
 
-	@GetMapping(value = "/")
-	public String showAllUsers(ModelMap model) {
-		model.addAttribute("allUsers", userService.getAllUsers());
-		return "users";
-	}
+    @GetMapping(value = "/")
+    public String showAllUsers(ModelMap model) {
+        model.addAttribute("allUsers", userService.getAllUsers());
+        return "users";
+    }
 
-	@GetMapping("/addNewUser")
-	public String addNewUserForm(ModelMap model) {
+    @GetMapping("/addNewUser")
+    public String addNewUserForm(ModelMap model) {
 
-		model.addAttribute("currentUser", new User());
+        model.addAttribute("currentUser", new User());
 
-		return "user-info";
-	}
+        return "user-info";
+    }
 
-	@GetMapping("/editUser")
-	public String editUserForm(@RequestParam("id") Long id, ModelMap model) {
+    @GetMapping("/editUser")
+    public String editUserForm(@RequestParam("id") Long id, ModelMap model) {
 
-		User user = userService.findUserById(id);
+        User user = userService.findUserById(id);
 
-		model.addAttribute("currentUser", user);
+        model.addAttribute("currentUser", user);
 
-		return "user-info";
-	}
+        return "user-info";
+    }
 
-	@PostMapping()
-	public String saveUser(@ModelAttribute("currentUser") User user) {
-		userService.saveUser(user);
-		return "redirect:/";
-	}
+    @PostMapping()
+    public String saveUser(@ModelAttribute("currentUser") User user) {
+        userService.saveUser(user);
+        return "redirect:/";
+    }
 
-	@GetMapping("/deleteUser")
-	public String deleteUser(@RequestParam Long id) {
-		userService.deleteUser(id);
-		return "redirect:/";
-	}
+    @GetMapping("/deleteUser")
+    public String deleteUser(@RequestParam Long id) {
+        userService.deleteUser(id);
+        return "redirect:/";
+    }
 }

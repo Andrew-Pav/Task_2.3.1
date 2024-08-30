@@ -1,7 +1,6 @@
 package web.models;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
 @Table(name = "users")
@@ -9,7 +8,6 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
     @Column(name = "name")
@@ -18,10 +16,10 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "age")
     private int age;
 
-    public User() {}
+    public User() {
+    }
 
     public User(String firstName, String lastName, int age) {
         this.firstName = firstName;
@@ -69,18 +67,5 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", age=" + age +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
     }
 }
